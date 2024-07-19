@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, Suspense } from "react";
 import {
   useParams,
   Link,
   Route,
-  useRouteMatch,
-  useHistory,
   useLocation,
+  Routes,
+  Outlet,
 } from "react-router-dom";
 import axios from "axios";
 import MovieCast from "../../components/MovieCast/MovieCast";
 import MovieReviews from "../../components/MovieReviews/MovieReviews";
 import { getImageUrl } from "../../payments-api";
+import css from "./MovieDetailsPage.module.css";
 
 export default function MovieDetalsPage() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
-  const { url, path } = useRouteMatch();
-  const history = useHistory();
+
   const location = useLocation();
 
   useEffect(() => {
@@ -34,32 +34,44 @@ export default function MovieDetalsPage() {
     fetchMovieDetails();
   }, [movieId]);
 
-  const goBack = () => {
-    if (location.state && location.state.from) {
-      history.push(location.state.from);
-    } else {
-      history.push("/movies");
-    }
-  };
+  const goBack = useRef(location?.state?.from ?? "/");
 
   return (
     <div>
       {movie && (
         <>
-          <button onClick={goBack}>Go back</button>
-          <h1>{movie.title}</h1>
-          <img src={getImageUrl(movie.poster_path)} alt={movie.title} />
-          <p>{movie.overview}</p>
-          <ul>
-            <li>
-              <Link to={`${url}/cast`}>Cast</Link>
-            </li>
-            <li>
-              <Link to={`${url}/reviews`}>Reviews</Link>
-            </li>
-          </ul>
-          <Route path={`${path}/cast`} component={MovieCast} />
-          <Route path={`${path}/reviews`} component={MovieReviews} />
+          <Link to={goBack.current}>Go back</Link>
+          <div className={css.container}>
+            <h1>{movie.title}</h1>
+            <img src={getImageUrl(movie.poster_path)} alt={movie.title} />
+            <p>
+              Release Date:
+              <br /> {movie.release_date}
+            </p>
+            <p>
+              Rating:
+              <br /> {movie.vote_average}
+            </p>
+            <p>
+              Overview:
+              <br /> {movie.overview}
+            </p>
+            <ul>
+              <li>
+                <Link to={"cast"}>Cast</Link>
+              </li>
+              <li>
+                <Link to={"reviews"}>Reviews</Link>
+              </li>
+            </ul>
+            <Suspense>
+              <Routes>
+                <Route path={"cast"} element={<MovieCast />} />
+                <Route path={"reviews"} element={<MovieReviews />} />
+              </Routes>
+            </Suspense>
+            <Outlet />
+          </div>
         </>
       )}
     </div>

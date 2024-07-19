@@ -1,0 +1,24 @@
+.nav {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+}
+
+.active {
+  color: orangered;
+}
+
+.list {
+  margin: 0 auto;
+  font-size: large;
+  font-weight: 500;
+  display: flex;
+  gap: 15px;
+}

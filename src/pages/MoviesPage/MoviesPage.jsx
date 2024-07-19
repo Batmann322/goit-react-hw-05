@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import MovieList from "../../components/MovieList/MovieList";
 import axios from "axios";
+import css from "./MoviesPage.module.css";
 
 export default function MoviesPage() {
   const [query, setQuery] = useState("");
@@ -21,7 +22,7 @@ export default function MoviesPage() {
 
   return (
     <div>
-      <form onSubmit={handleSearch}>
+      <form onSubmit={handleSearch} className={css.container}>
         <input
           type="text"
           value={query}

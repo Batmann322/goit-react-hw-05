@@ -5,7 +5,7 @@ axios.defaults.baseURL = "https://api.themoviedb.org/3";
 const API_KEY =
   "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYjdlMjZjYTBiNThiYWZjMzY5YmRmOWI0M2QwOTY2ZiIsIm5iZiI6MTcyMDk3ODA4My44NTUzOTYsInN1YiI6IjY2OTAwZGM0MWNhNjU2ZmY4NTk3YjY3NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.OT6G5mCGNLJMH5fXnjRsJIIvDpPWIamXx4GcWvLIkXk";
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p";
-const IMAGE_SIZE = "w500";
+const IMAGE_SIZE = "w300";
 
 export const getTrendingMovies = async () => {
   const response = await axios.get("/trending/movie/day", {
