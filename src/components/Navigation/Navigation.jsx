@@ -10,7 +10,7 @@ export default function Navigation() {
     <nav className={css.nav}>
       <ul className={css.list}>
         <li>
-          <NavLink to="/" className={makeNavLinkClass}>
+          <NavLink to="/" end className={makeNavLinkClass}>
             Home
           </NavLink>
         </li>
